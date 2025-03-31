@@ -1,5 +1,5 @@
 # baseURL = "http://localhost:1313/"
-baseURL = "https://my-hugo-blog.vercel.app"
+baseURL = "https://my-hugo-blog-iota.vercel.app"
 title = "My Hugo Blog"
 theme = "papermod"
 
