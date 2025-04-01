@@ -4,10 +4,13 @@
   "description": "我的Hugo博客",
   "scripts": {
     "dev": "hugo server --environment development",
-    "build": "hugo --environment production",
+    "build": "./vercel-build.sh",
     "build:dev": "./scripts/build-dev.sh",
     "build:prod": "./scripts/build-prod.sh",
-    "change-domain": "./scripts/change-domain.sh"
+    "change-domain": "./scripts/change-domain.sh",
+    "deploy:preview": "vercel",
+    "deploy:prod": "vercel --prod",
+    "deploy": "./scripts/deploy-vercel.sh"
   },
   "author": "Jasion-han"
 } 

@@ -46,12 +46,51 @@ npm run build:prod
 
 ## 部署
 
+### 通过GitHub部署到Vercel
+
 项目配置为在Vercel上自动部署。当推送到GitHub仓库时，Vercel将自动使用生产环境配置构建站点。
+
+### 直接从本地部署到Vercel
+
+无需先推送到GitHub，可以直接从本地部署到Vercel：
+
+#### 预览部署
+
+```bash
+npm run deploy:preview
+```
+
+或者：
+
+```bash
+vercel
+```
+
+#### 生产部署
+
+```bash
+npm run deploy:prod
+```
+
+或者：
+
+```bash
+vercel --prod
+```
+
+#### 完整部署流程（包含提示）
+
+```bash
+npm run deploy
+```
+
+这将引导你完成预览部署、生产部署和GitHub提交的完整流程。
 
 ## 配置文件结构
 
 - `config/_default/config.toml`: 基本配置
 - `config/development/config.toml`: 开发环境URL配置
 - `config/production/config.toml`: 生产环境URL配置
+- `vercel.json`: Vercel部署配置
 
 这种结构使我们可以轻松地在不同环境之间切换，并且在更改域名时只需修改一个文件。 
