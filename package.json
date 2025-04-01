@@ -1,0 +1,13 @@
+{
+  "name": "my-hugo-blog",
+  "version": "1.0.0",
+  "description": "我的Hugo博客",
+  "scripts": {
+    "dev": "hugo server --environment development",
+    "build": "hugo --environment production",
+    "build:dev": "./scripts/build-dev.sh",
+    "build:prod": "./scripts/build-prod.sh",
+    "change-domain": "./scripts/change-domain.sh"
+  },
+  "author": "Jasion-han"
+} 
