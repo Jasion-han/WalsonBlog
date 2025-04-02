@@ -1,9 +1,9 @@
-title = "My Hugo Blog"
+title = "Walson Blog"
 theme = "papermod"
 
 [pagination]
   pagerSize = 5  # 替换旧的 paginate = 5
 
 [params]
-  description = "这是我的个人Hugo博客"
-  author = "Jasion-han" 
+  description = "Walson的个人博客"
+  author = "Walson" 

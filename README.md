@@ -1,6 +1,6 @@
-# My Hugo Blog
+# Walson Blog
 
-这是一个使用Hugo构建的个人博客，具有集中管理URL的功能。
+这是一个使用Hugo构建的个人博客。
 
 ## 开发
 
@@ -28,7 +28,7 @@ npm run build:dev
 npm run build:prod
 ```
 
-这将生成使用生产环境URL（当前配置为https://my-hugo-blog-iota.vercel.app/）的静态文件。
+这将生成使用生产环境URL（当前配置为https://www.walson.xyz/）的静态文件。
 
 ## 更改域名
 

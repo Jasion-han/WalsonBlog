@@ -3,7 +3,7 @@
 
 if [ $# -eq 0 ]; then
   echo "使用方法: $0 <新域名>"
-  echo "例如: $0 https://my-new-domain.com"
+  echo "例如: $0 https://www.example.com"
   exit 1
 fi
 

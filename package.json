@@ -1,7 +1,7 @@
 {
-  "name": "my-hugo-blog",
+  "name": "walson-blog",
   "version": "1.0.0",
-  "description": "我的Hugo博客",
+  "description": "Walson的个人博客",
   "scripts": {
     "dev": "hugo server --environment development",
     "build": "./vercel-build.sh",
@@ -12,5 +12,5 @@
     "deploy:prod": "vercel --prod",
     "deploy": "./scripts/deploy-vercel.sh"
   },
-  "author": "Jasion-han"
+  "author": "Walson"
 } 
