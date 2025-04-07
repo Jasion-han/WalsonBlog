@@ -1,1 +1,11 @@
 .vercel
+public/
+resources/
+.hugo_build.lock
+
+# OS Files
+.DS_Store
+Thumbsdb
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
