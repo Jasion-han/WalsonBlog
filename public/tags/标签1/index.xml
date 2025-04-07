@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>标签1 - 标签 - Walson Blog</title>
+        <link>http://localhost:1313/tags/%E6%A0%87%E7%AD%BE1/</link>
+        <description>标签1 - 标签 - Walson Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 04 Apr 2025 14:34:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E6%A0%87%E7%AD%BE1/" rel="self" type="application/rss+xml" /><item>
+    <title>我的新文章标题</title>
+    <link>http://localhost:1313/posts/my-new-article/</link>
+    <pubDate>Fri, 04 Apr 2025 14:34:01 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/posts/my-new-article/</guid>
+    <description><![CDATA[<h2 id="文章标题">文章标题</h2>
+<p>这里是文章的正文内容。你可以使用Markdown语法来编写丰富的文章内容。</p>
+<h3 id="子标题">子标题</h3>
+<p>这是一个子章节的内容。</p>
+<ul>
+<li>这是一个无序列表项</li>
+<li>这是另一个无序列表项</li>
+</ul>
+<ol>
+<li>这是一个有序列表项</li>
+<li>这是另一个有序列表项</li>
+</ol>
+<blockquote>
+<p>这是一段引用文字</p>]]></description>
+</item>
+</channel>
+</rss>

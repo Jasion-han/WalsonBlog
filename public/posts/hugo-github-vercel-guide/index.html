@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>使用Hugo、GitHub和Vercel搭建个人博客指南 - Walson Blog</title><meta name="Description" content="Walson的个人博客，记录技术学习和生活感悟。"><meta property="og:url" content="http://localhost:1313/posts/hugo-github-vercel-guide/">
+  <meta property="og:site_name" content="Walson Blog">
+  <meta property="og:title" content="使用Hugo、GitHub和Vercel搭建个人博客指南">
+  <meta property="og:description" content="本文将详细介绍如何使用Hugo搭建个人博客，结合GitHub进行版本控制，并通过Vercel进行自动部署和托管。无需购买服务器，完全免费，适合个人博客和项目展示。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-03T10:00:00+08:00">
+    <meta property="article:modified_time" content="2025-04-03T10:00:00+08:00">
+    <meta property="article:tag" content="Hugo">
+    <meta property="article:tag" content="GitHub">
+    <meta property="article:tag" content="Vercel">
+    <meta property="article:tag" content="教程">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="使用Hugo、GitHub和Vercel搭建个人博客指南">
+  <meta name="twitter:description" content="本文将详细介绍如何使用Hugo搭建个人博客，结合GitHub进行版本控制，并通过Vercel进行自动部署和托管。无需购买服务器，完全免费，适合个人博客和项目展示。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/hugo-github-vercel-guide/" /><link rel="prev" href="http://localhost:1313/posts/my-first-post/" /><link rel="next" href="http://localhost:1313/posts/my-new-article/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用Hugo、GitHub和Vercel搭建个人博客指南",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/hugo-github-vercel-guide\/"
+        },"genre": "posts","keywords": "Hugo, GitHub, Vercel, 教程","wordcount":  1607 ,
+        "url": "http:\/\/localhost:1313\/posts\/hugo-github-vercel-guide\/","datePublished": "2025-04-03T10:00:00+08:00","dateModified": "2025-04-03T10:00:00+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Walson Blog">Walson Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/archives/"> 归档 </a><a class="menu-item" href="/search/"> 搜索 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/hugo-github-vercel-guide/" selected>简体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Walson Blog">Walson Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/archives/" title="">归档</a><a class="menu-item" href="/search/" title="">搜索</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/hugo-github-vercel-guide/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">使用Hugo、GitHub和Vercel搭建个人博客指南</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术教程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-04-03">2025-04-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1607 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一前期准备">一、前期准备</a>
+      <ul>
+        <li><a href="#11-安装必要工具">1.1 安装必要工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#二创建hugo站点">二、创建Hugo站点</a>
+      <ul>
+        <li><a href="#21-初始化项目">2.1 初始化项目</a></li>
+        <li><a href="#22-添加主题">2.2 添加主题</a></li>
+        <li><a href="#23-配置站点">2.3 配置站点</a></li>
+      </ul>
+    </li>
+    <li><a href="#三创建内容">三、创建内容</a>
+      <ul>
+        <li><a href="#31-创建第一篇文章">3.1 创建第一篇文章</a></li>
+        <li><a href="#32-本地预览">3.2 本地预览</a></li>
+      </ul>
+    </li>
+    <li><a href="#四github托管">四、GitHub托管</a>
+      <ul>
+        <li><a href="#41-创建github仓库">4.1 创建GitHub仓库</a></li>
+        <li><a href="#42-将项目推送到github">4.2 将项目推送到GitHub</a></li>
+      </ul>
+    </li>
+    <li><a href="#五vercel部署">五、Vercel部署</a>
+      <ul>
+        <li><a href="#51-连接vercel与github">5.1 连接Vercel与GitHub</a></li>
+        <li><a href="#52-自定义域名可选">5.2 自定义域名（可选）</a></li>
+      </ul>
+    </li>
+    <li><a href="#六持续集成与部署">六、持续集成与部署</a></li>
+    <li><a href="#七写作技巧">七、写作技巧</a>
+      <ul>
+        <li><a href="#71-文章前置参数">7.1 文章前置参数</a></li>
+        <li><a href="#72-markdown语法">7.2 Markdown语法</a></li>
+      </ul>
+    </li>
+    <li><a href="#八总结">八、总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文将详细介绍如何使用Hugo搭建个人博客，结合GitHub进行版本控制，并通过Vercel进行自动部署和托管。无需购买服务器，完全免费，适合个人博客和项目展示。</p>
+<h2 id="一前期准备">一、前期准备</h2>
+<h3 id="11-安装必要工具">1.1 安装必要工具</h3>
+<p>在开始之前，您需要安装以下工具：</p>
+<ul>
+<li><strong>Git</strong>：用于版本控制</li>
+<li><strong>Hugo</strong>：静态网站生成框架</li>
+<li><strong>GitHub账号</strong>：用于代码托管</li>
+<li><strong>Vercel账号</strong>：用于网站部署（可使用GitHub账号直接登录）</li>
+</ul>
+<h4 id="安装git">安装Git</h4>
+<p>根据您的操作系统，从<a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreffer ">Git官网</a>下载并安装Git。</p>
+<h4 id="安装hugo">安装Hugo</h4>
+<p><strong>macOS用户</strong>：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install hugo</span></span></code></pre></div></div>
+<p><strong>Windows用户</strong>：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">choco install hugo -confirm</span></span></code></pre></div></div>
+<p><strong>Linux用户</strong>：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install hugo</span></span></code></pre></div></div>
+<p>安装完成后，验证安装：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo version</span></span></code></pre></div></div>
+<h2 id="二创建hugo站点">二、创建Hugo站点</h2>
+<h3 id="21-初始化项目">2.1 初始化项目</h3>
+<p>创建一个新的Hugo站点：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new site my-blog
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> my-blog</span></span></code></pre></div></div>
+<h3 id="22-添加主题">2.2 添加主题</h3>
+<p>Hugo需要一个主题才能正常工作。以LoveIt主题为例：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt</span></span></code></pre></div></div>
+<h3 id="23-配置站点">2.3 配置站点</h3>
+<p>编辑<code>config.toml</code>文件（或创建<code>config/_default/config.toml</code>）：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">title</span> <span class="p">=</span> <span class="s2">&#34;我的个人博客&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;LoveIt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">description</span> <span class="p">=</span> <span class="s2">&#34;我的个人博客描述&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">author</span> <span class="p">=</span> <span class="s2">&#34;您的名字&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">defaultTheme</span> <span class="p">=</span> <span class="s2">&#34;auto&#34;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">menu</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;posts&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;文章&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/posts/&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">weight</span> <span class="p">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;categories&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;分类&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/categories/&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">weight</span> <span class="p">=</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;tags&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;标签&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/tags/&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">weight</span> <span class="p">=</span> <span class="mi">30</span></span></span></code></pre></div></div>
+<h2 id="三创建内容">三、创建内容</h2>
+<h3 id="31-创建第一篇文章">3.1 创建第一篇文章</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new posts/my-first-post.md</span></span></code></pre></div></div>
+<p>编辑新创建的文件：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-markdown">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: &#34;我的第一篇文章&#34;
+</span></span><span class="line"><span class="cl">date: 2023-04-03T10:00:00+08:00
+</span></span><span class="line"><span class="cl">draft: false
+</span></span><span class="line"><span class="cl">tags: [&#34;Hugo&#34;]
+</span></span><span class="line"><span class="cl">categories: [&#34;博客&#34;]
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">## 你好，世界！
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
+</span></span><span class="line"><span class="cl">这是我使用Hugo创建的第一篇博客文章。</span></span></code></pre></div></div>
+<h3 id="32-本地预览">3.2 本地预览</h3>
+<p>启动Hugo的开发服务器：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -D</span></span></code></pre></div></div>
+<p>访问<code>http://localhost:1313</code>查看您的网站。</p>
+<h2 id="四github托管">四、GitHub托管</h2>
+<h3 id="41-创建github仓库">4.1 创建GitHub仓库</h3>
+<p>在GitHub上创建一个新的仓库，例如<code>my-blog</code>。</p>
+<h3 id="42-将项目推送到github">4.2 将项目推送到GitHub</h3>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;初始化博客&#34;</span>
+</span></span><span class="line"><span class="cl">git branch -M master
+</span></span><span class="line"><span class="cl">git remote add origin https://github.com/您的用户名/my-blog.git
+</span></span><span class="line"><span class="cl">git push -u origin master</span></span></code></pre></div></div>
+<h2 id="五vercel部署">五、Vercel部署</h2>
+<h3 id="51-连接vercel与github">5.1 连接Vercel与GitHub</h3>
+<ol>
+<li>
+<p>登录<a href="https://vercel.com" target="_blank" rel="noopener noreffer ">Vercel</a>（可使用GitHub账号）</p>
+</li>
+<li>
+<p>点击&quot;New Project&quot;（新项目）</p>
+</li>
+<li>
+<p>导入您的GitHub仓库</p>
+</li>
+<li>
+<p>在配置页面中，设置以下内容：</p>
+<ul>
+<li>Framework Preset: Hugo</li>
+<li>Build Command: <code>hugo --gc --minify</code></li>
+<li>Output Directory: <code>public</code></li>
+</ul>
+</li>
+<li>
+<p>如果使用的是最新版Hugo，可能需要添加环境变量：</p>
+<ul>
+<li>名称: <code>HUGO_VERSION</code></li>
+<li>值: <code>0.110.0</code>（或您使用的Hugo版本）</li>
+</ul>
+</li>
+<li>
+<p>点击&quot;Deploy&quot;开始部署</p>
+</li>
+</ol>
+<h3 id="52-自定义域名可选">5.2 自定义域名（可选）</h3>
+<p>如果您有自己的域名：</p>
+<ol>
+<li>在Vercel项目中，进入&quot;Settings&quot; &gt; &ldquo;Domains&rdquo;</li>
+<li>添加您的域名</li>
+<li>按照指示在您的DNS提供商处添加相应的记录</li>
+</ol>
+<h2 id="六持续集成与部署">六、持续集成与部署</h2>
+<p>每当您向GitHub仓库推送更改时，Vercel将自动重新构建和部署您的网站。</p>
+<p>要添加新文章，只需：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new posts/new-article.md
+</span></span><span class="line"><span class="cl"><span class="c1"># 编辑文章内容</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;添加新文章&#34;</span>
+</span></span><span class="line"><span class="cl">git push</span></span></code></pre></div></div>
+<h2 id="七写作技巧">七、写作技巧</h2>
+<h3 id="71-文章前置参数">7.1 文章前置参数</h3>
+<p>Hugo文章开头的YAML前置参数非常重要：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-yaml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;文章标题&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="ld">2023-04-03T10:00:00</span><span class="m">+08</span><span class="p">:</span><span class="m">00</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">draft</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c"># true为草稿，不会发布</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;标签1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;标签2&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">categories</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;分类&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;作者名&#34;</span><span class="w">  </span><span class="c"># 可选</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;文章描述&#34;</span><span class="w">  </span><span class="c"># 可选</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span></span></span></code></pre></div></div>
+<h3 id="72-markdown语法">7.2 Markdown语法</h3>
+<p>Hugo使用Markdown格式，您可以使用各种Markdown语法来丰富文章：</p>
+<ul>
+<li>标题：<code># 一级标题</code> 到 <code>###### 六级标题</code></li>
+<li>强调：<code>**粗体**</code>, <code>*斜体*</code></li>
+<li>列表：<code>1. 有序列表</code> 或 <code>- 无序列表</code></li>
+<li>链接：<code>[链接文本](URL)</code></li>
+<li>图片：<code>![替代文本](图片URL)</code></li>
+<li>代码：<code> </code> 包围的代码块，或 ` 包围的行内代码</li>
+</ul>
+<h2 id="八总结">八、总结</h2>
+<p>通过以上步骤，您已经成功创建了一个由Hugo驱动、GitHub托管、Vercel部署的个人博客。这种方式免费、高效、易于维护，并且拥有自动化的部署流程。</p>
+<p>随着您对Hugo的深入了解，可以进一步定制主题、添加评论系统、集成分析工具等，打造专属于您的个性化博客平台。</p>
+<p>尝试搭建一套自己的个人博客吧！</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-04-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="http://localhost:1313/posts/hugo-github-vercel-guide/" data-title="使用Hugo、GitHub和Vercel搭建个人博客指南" data-hashtags="Hugo,GitHub,Vercel,教程"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="http://localhost:1313/posts/hugo-github-vercel-guide/" data-title="使用Hugo、GitHub和Vercel搭建个人博客指南"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/hugo-github-vercel-guide/" data-hashtag="Hugo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/hugo-github-vercel-guide/" data-title="使用Hugo、GitHub和Vercel搭建个人博客指南"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/hugo-github-vercel-guide/" data-title="使用Hugo、GitHub和Vercel搭建个人博客指南"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="http://localhost:1313/posts/hugo-github-vercel-guide/" data-title="使用Hugo、GitHub和Vercel搭建个人博客指南" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fhugo-github-vercel-guide%2f&amp;text=%e4%bd%bf%e7%94%a8Hugo%e3%80%81GitHub%e5%92%8cVercel%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2%e6%8c%87%e5%8d%97" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hugo/">Hugo</a>,&nbsp;<a href="/tags/github/">GitHub</a>,&nbsp;<a href="/tags/vercel/">Vercel</a>,&nbsp;<a href="/tags/%E6%95%99%E7%A8%8B/">教程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/my-new-article/" class="prev" rel="prev" title="我的新文章标题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>我的新文章标题</a>
+            <a href="/posts/my-first-post/" class="next" rel="next" title="我的第一篇文章">我的第一篇文章<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

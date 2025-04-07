@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>教程 - 标签 - Walson Blog</title>
+        <link>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</link>
+        <description>教程 - 标签 - Walson Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 03 Apr 2025 10:00:00 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E6%95%99%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>使用Hugo、GitHub和Vercel搭建个人博客指南</title>
+    <link>http://localhost:1313/posts/hugo-github-vercel-guide/</link>
+    <pubDate>Thu, 03 Apr 2025 10:00:00 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/posts/hugo-github-vercel-guide/</guid>
+    <description><![CDATA[<p>本文将详细介绍如何使用Hugo搭建个人博客，结合GitHub进行版本控制，并通过Vercel进行自动部署和托管。无需购买服务器，完全免费，适合个人博客和项目展示。</p>]]></description>
+</item>
+</channel>
+</rss>

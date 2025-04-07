@@ -1,11 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Tags on Walson Blog</title>
-    <link>https://www.walson.xyz/tags/</link>
-    <description>Recent content in Tags on Walson Blog</description>
-    <generator>Hugo -- 0.145.0</generator>
-    <language>en</language>
-    <atom:link href="https://www.walson.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - 标签 - Walson Blog</title>
+        <link>http://localhost:1313/tags/</link>
+        <description>Tags - 标签 - Walson Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 04 Apr 2025 14:34:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>标签1</title>
+    <link>http://localhost:1313/tags/%E6%A0%87%E7%AD%BE1/</link>
+    <pubDate>Fri, 04 Apr 2025 14:34:01 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/tags/%E6%A0%87%E7%AD%BE1/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>标签2</title>
+    <link>http://localhost:1313/tags/%E6%A0%87%E7%AD%BE2/</link>
+    <pubDate>Fri, 04 Apr 2025 14:34:01 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/tags/%E6%A0%87%E7%AD%BE2/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>GitHub</title>
+    <link>http://localhost:1313/tags/github/</link>
+    <pubDate>Thu, 03 Apr 2025 10:00:00 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/tags/github/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Hugo</title>
+    <link>http://localhost:1313/tags/hugo/</link>
+    <pubDate>Thu, 03 Apr 2025 10:00:00 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/tags/hugo/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Vercel</title>
+    <link>http://localhost:1313/tags/vercel/</link>
+    <pubDate>Thu, 03 Apr 2025 10:00:00 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/tags/vercel/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>教程</title>
+    <link>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</link>
+    <pubDate>Thu, 03 Apr 2025 10:00:00 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://localhost:1313/tags/%E6%95%99%E7%A8%8B/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
 </rss>
