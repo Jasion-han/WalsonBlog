@@ -1,0 +1,78 @@
+{{- $cdn := .Site.Params.cdn -}}
+{{- with .Site.Params.publicCDN.fontawesomeFreeCSS -}}
+    {{- $fontawesomeFreeCSS := . | resources.Get -}}
+    {{- if $fontawesomeFreeCSS -}}
+        {{- $fontawesomeFreeCSS.RelPermalink -}}
+    {{- end -}}
+{{- else -}}
+    {{- $fontawesomeFreeCSS := resources.Get "lib/fontawesome-free/all.min.css" -}}
+    {{- if $fontawesomeFreeCSS -}}
+        {{- $fontawesomeFreeCSS = $fontawesomeFreeCSS | resources.Fingerprint "sha384" -}}
+        <link rel="stylesheet" href="{{ $fontawesomeFreeCSS.RelPermalink }}" integrity="{{ $fontawesomeFreeCSS.Data.Integrity }}">
+    {{- end -}}
+{{- end -}}
+
+{{- /* Favicon */ -}}
+{{- /* 引入自定义的favicon部分 */ -}}
+{{- partial "head/favicon.html" . -}}
+
+{{- /* Search */ -}}
+{{- if .Site.Params.search | and .Site.Params.search.enable -}}
+    {{- $search := resources.Get "lib/lunr/lunr.min.js" -}}
+    {{- if $search -}}
+        <script src="{{ $search.RelPermalink }}"></script>
+        {{- $searchInitJS := resources.Get "js/search.js" -}}
+        {{- if $searchInitJS -}}
+            {{- $searchInitJS = $searchInitJS | resources.Minify -}}
+            <script src="{{ $searchInitJS.RelPermalink }}"></script>
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* Style */ -}}
+{{- $style := slice -}}
+{{- $options := dict "targetPath" "css/style.min.css" "enableSourceMap" true -}}
+{{- with resources.Get "css/_core/_root.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_partial/_mask.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_core/_base.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_core/_layout.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_core/_animation.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_page/_common.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_page/_home.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_page/_archive.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_page/_single.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_page/_special.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_partial/_header.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_partial/_footer.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_partial/_pagination.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_partial/_breadcrumb.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_core/_media.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- with resources.Get "css/_core/_fix.scss" -}}{{- $style = $style | append . -}}{{- end -}}
+{{- if $style -}}
+    {{- $style = $style | resources.Concat "css/style.scss" | css.Sass $options | resources.Fingerprint "sha384" -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+{{- end -}}
+
+{{- /* RSS */ -}}
+{{- with .OutputFormats.Get "RSS" -}}
+    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ $.Site.Title }}">
+    <link rel="feed" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ $.Site.Title }}">
+{{- end -}}
+
+{{- /* Canonical links */ -}}
+{{- if .Site.Params.canonicalURL -}}
+    <link rel="canonical" href="{{ .Site.Params.canonicalURL }}{{ .RelPermalink }}">
+{{- else -}}
+    <link rel="canonical" href="{{ .Permalink }}">
+{{- end -}}
+
+{{- /* Custom */ -}}
+{{- with .Site.Params.customCSS -}}
+    {{- range . -}}
+        {{- $style := resources.Get . -}}
+        {{- if $style -}}
+            {{- $style = $style | resources.Minify | resources.Fingerprint "sha384" -}}
+            <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+        {{- end -}}
+    {{- end -}}
+{{- end -}}

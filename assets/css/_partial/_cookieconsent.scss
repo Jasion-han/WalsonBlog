@@ -1,0 +1,33 @@
+.cc-window.cc-banner {
+  font-family: $global-font-family;
+  padding: 1rem 1.5rem;
+  width: 100%;
+
+  .cc-btn {
+    border-radius: 0.5rem;
+  }
+
+  .cc-message {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .cc-link {
+    opacity: 0.8;
+    color: $global-link-color;
+
+    &:hover {
+      color: $global-link-hover-color;
+      text-decoration: none;
+    }
+
+    [theme=dark] & {
+      color: $global-link-color-dark;
+
+      &:hover {
+        color: $global-link-hover-color-dark;
+        text-decoration: none;
+      }
+    }
+  }
+}

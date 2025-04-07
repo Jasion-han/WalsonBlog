@@ -1,0 +1,69 @@
+.fixed-button {
+  display: none;
+  z-index: 100;
+  position: fixed;
+  right: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  padding: 0.6rem 0.6rem;
+  color: $global-font-secondary-color;
+  background: $header-background-color;
+  border: 1px solid $global-border-color;
+  border-radius: $global-border-radius;
+  @include transition(color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease);
+
+  @include blur;
+
+  &:hover, &:focus {
+    color: $global-font-color;
+    cursor: pointer;
+    background: $header-hover-color;
+    border-color: $global-border-color;
+  }
+
+  &:active {
+    color: $global-font-color;
+    background: $header-hover-color;
+    border-color: $global-border-color;
+  }
+
+  i {
+    font-size: 1rem;
+  }
+
+  [theme=dark] & {
+    color: $global-font-secondary-color-dark;
+    background: $header-background-color-dark;
+    border: 1px solid $global-border-color-dark;
+
+    &:hover, &:focus {
+      color: $global-font-color-dark;
+      background: $header-hover-color-dark;
+      border-color: $global-border-color-dark;
+    }
+
+    &:active {
+      color: $global-font-color-dark;
+      background: $header-hover-color-dark;
+      border-color: $global-border-color-dark;
+    }
+  }
+
+  @include max-mobile {
+    right: 0.8rem;
+  }
+}
+
+.fixed-button-top {
+  bottom: 4.8rem;
+  @include max-mobile {
+    bottom: 4.2rem;
+  }
+}
+
+.fixed-button-comment {
+  bottom: 8.4rem;
+  @include max-mobile {
+    bottom: 7.9rem;
+  }
+}
