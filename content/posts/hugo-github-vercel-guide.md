@@ -4,6 +4,7 @@ date: 2025-04-03T10:00:00+08:00
 draft: false
 tags: ["Hugo", "GitHub", "Vercel", "教程"]
 categories: ["技术教程"]
+author: "Walson"
 ---
 
 本文将详细介绍如何使用Hugo搭建个人博客，结合GitHub进行版本控制，并通过Vercel进行自动部署和托管。无需购买服务器，完全免费，适合个人博客和项目展示。

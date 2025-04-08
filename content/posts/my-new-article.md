@@ -4,6 +4,7 @@ date: 2025-04-04T14:34:01+08:00
 draft: false
 tags: ["标签1", "标签2"]
 categories: ["分类名称"]
+author: "Walson"
 ---
 
 ## 文章标题
