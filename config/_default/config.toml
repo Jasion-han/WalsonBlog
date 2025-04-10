@@ -269,7 +269,6 @@ enableEmoji = true # 启用Emoji支持
   [params.social]
     GitHub = "Jasion-han"
     Email = "475166676@qq.com"
-    RSS = true
 
   # 文章页面配置
   [params.page]
