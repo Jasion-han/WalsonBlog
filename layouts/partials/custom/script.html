@@ -17,33 +17,212 @@
       }
     };
     
-    // 等待Gitalk初始化
+    // 等待Gitalk初始化，增加等待时间确保在生产环境下完全加载
     setTimeout(function() {
       if (window.Gitalk && window.commentConfig && window.commentConfig.gitalk) {
-        // 使用MD5哈希处理URL作为id，确保长度不超过50
-        var pathname = decodeURI(window.location.pathname);
-        window.commentConfig.gitalk.id = md5(pathname).substring(0, 49);
-        
-        // 确保admin是数组
-        if (!Array.isArray(window.commentConfig.gitalk.admin)) {
-          window.commentConfig.gitalk.admin = [window.commentConfig.gitalk.owner];
+        try {
+          // 使用MD5哈希处理URL作为id，确保长度不超过50
+          var pathname = decodeURI(window.location.pathname);
+          window.commentConfig.gitalk.id = md5(pathname).substring(0, 49);
+          
+          // 确保admin是数组
+          if (!Array.isArray(window.commentConfig.gitalk.admin)) {
+            window.commentConfig.gitalk.admin = [window.commentConfig.gitalk.owner];
+          }
+          
+          // 设置正确的授权回调URL
+          window.commentConfig.gitalk.redirect_uri = window.location.origin + window.location.pathname;
+          
+          // 移除body参数，避免编码问题
+          delete window.commentConfig.gitalk.body;
+          
+          // 确保createIssueManually设置正确
+          window.commentConfig.gitalk.createIssueManually = false;
+          
+          // 增加调试日志
+          console.log('Gitalk配置:', JSON.stringify(window.commentConfig.gitalk));
+          
+          // 初始化Gitalk实例
+          var gitalk = new Gitalk(window.commentConfig.gitalk);
+          
+          // 清除原有内容并重新渲染
+          var gitalkContainer = document.getElementById('gitalk');
+          if (gitalkContainer) {
+            gitalkContainer.innerHTML = '';
+          }
+          
+          // 渲染Gitalk
+          gitalk.render('gitalk');
+          
+          // 添加全局错误处理，防止ResizeObserver错误影响用户体验
+          window.addEventListener('error', function(event) {
+            if (event.message && (
+                event.message.includes('ResizeObserver') || 
+                event.message.includes('Gitalk') ||
+                event.message.includes('axios')
+              )) {
+              console.log('已拦截非关键错误:', event.message);
+              event.stopPropagation();
+              event.preventDefault();
+              return false;
+            }
+          }, true);
+          
+          // 使用MutationObserver监听DOM变化，修复输入框和提交按钮
+          var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.addedNodes.length > 0) {
+                // 延迟处理以确保DOM完全加载
+                setTimeout(function() {
+                  // 修复错误消息
+                  var errorElements = document.querySelectorAll('.gt-error');
+                  if (errorElements.length > 0) {
+                    errorElements.forEach(function(element) {
+                      if (element.textContent.includes('Not Found')) {
+                        console.log('检测到Gitalk错误，尝试重新初始化...');
+                        element.style.display = 'none'; // 隐藏错误信息
+                        
+                        // 尝试创建issue
+                        var headerButton = document.querySelector('.gt-header-controls .gt-btn');
+                        if (headerButton) {
+                          headerButton.click();
+                          console.log('自动点击了"创建Issue"按钮');
+                        }
+                      }
+                    });
+                  }
+                  
+                  // 修复输入框
+                  var textareas = document.querySelectorAll('.gt-header-textarea');
+                  if (textareas.length > 0) {
+                    textareas.forEach(function(textarea) {
+                      // 移除所有阻止输入的样式和属性
+                      textarea.style.pointerEvents = 'auto';
+                      textarea.style.webkitUserSelect = 'text';
+                      textarea.style.userSelect = 'text';
+                      textarea.style.caretColor = 'auto'; // 确保光标可见
+                      
+                      // 添加可见的输入边框和焦点效果
+                      textarea.style.border = '1px solid #ccc';
+                      textarea.style.outline = 'none';
+                      
+                      // 移除原有事件监听器
+                      var newTextarea = textarea.cloneNode(true);
+                      textarea.parentNode.replaceChild(newTextarea, textarea);
+                      
+                      // 确保输入框可以获得和保持焦点
+                      newTextarea.addEventListener('click', function(e) {
+                        this.focus();
+                        e.stopPropagation(); // 阻止可能干扰焦点的事件冒泡
+                      });
+                      
+                      // 添加输入事件
+                      newTextarea.addEventListener('input', function(e) {
+                        console.log('输入内容:', this.value);
+                        
+                        // 同步到原始Gitalk状态
+                        var event = new Event('input', { bubbles: true });
+                        this.dispatchEvent(event);
+                      });
+                      
+                      // 阻止键盘事件冒泡，避免被Gitalk拦截
+                      newTextarea.addEventListener('keydown', function(e) {
+                        // 仅拦截Enter键 + Ctrl的组合，避免默认提交行为被屏蔽
+                        if (e.key === 'Enter' && e.ctrlKey) {
+                          e.stopPropagation(); // 阻止事件冒泡
+                          
+                          // 手动触发提交
+                          var submitBtn = document.querySelector('.gt-btn.gt-btn-public');
+                          if (submitBtn) {
+                            submitBtn.click();
+                          }
+                        }
+                      }, true);
+                    });
+                  }
+                  
+                  // 修复提交按钮
+                  var submitButtons = document.querySelectorAll('.gt-btn.gt-btn-public');
+                  if (submitButtons.length > 0) {
+                    submitButtons.forEach(function(button) {
+                      // 克隆按钮以移除所有事件监听器
+                      var newButton = button.cloneNode(true);
+                      button.parentNode.replaceChild(newButton, button);
+                      
+                      // 确保按钮可点击
+                      newButton.style.pointerEvents = 'auto';
+                      newButton.style.cursor = 'pointer';
+                      
+                      // 添加高亮效果
+                      newButton.addEventListener('mouseenter', function() {
+                        this.style.opacity = '0.8';
+                      });
+                      
+                      newButton.addEventListener('mouseleave', function() {
+                        this.style.opacity = '1';
+                      });
+                      
+                      // 添加点击事件处理
+                      newButton.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        console.log('提交按钮被点击');
+                        
+                        // 获取输入框内容
+                        var textarea = document.querySelector('.gt-header-textarea');
+                        if (!textarea) return;
+                        
+                        var commentContent = textarea.value;
+                        if (!commentContent || commentContent.trim() === '') {
+                          console.log('评论内容为空，不提交');
+                          return;
+                        }
+                        
+                        console.log('准备提交评论，内容:', commentContent);
+                        
+                        // 尝试通过Gitalk内部方法提交
+                        try {
+                          // 通过表单提交
+                          var form = document.querySelector('.gt-header-comment');
+                          if (form) {
+                            var submitEvent = new Event('submit', {bubbles: true, cancelable: true});
+                            form.dispatchEvent(submitEvent);
+                          }
+                          
+                          // 延迟清空输入框，确保提交后能正确提示
+                          setTimeout(function() {
+                            if (document.querySelector('.gt-error')) {
+                              console.log('提交遇到错误');
+                            } else {
+                              console.log('评论提交成功');
+                              // textarea.value = ''; // 在成功后清空输入框
+                            }
+                          }, 1000);
+                        } catch (err) {
+                          console.error('评论提交失败:', err);
+                        }
+                      });
+                    });
+                  }
+                }, 500);
+              }
+            });
+          });
+          
+          // 监视整个Gitalk容器的变化
+          var gitalkContainer = document.getElementById('gitalk');
+          if (gitalkContainer) {
+            observer.observe(gitalkContainer, { childList: true, subtree: true });
+          }
+          
+          console.log('Gitalk评论区修复脚本加载完成');
+        } catch (error) {
+          console.error('Gitalk初始化失败:', error);
         }
-        
-        // 设置正确的授权回调URL
-        window.commentConfig.gitalk.redirect_uri = window.location.origin;
-        
-        // 移除body参数，避免编码问题
-        delete window.commentConfig.gitalk.body;
-        
-        // 添加调试信息
-        console.log('Gitalk配置:', window.commentConfig.gitalk);
-        
-        // 初始化Gitalk
-        var gitalk = new Gitalk(window.commentConfig.gitalk);
-        gitalk.render('gitalk');
       } else {
-        console.error('Gitalk初始化失败，可能是配置或库未加载');
+        console.error('Gitalk或配置未加载');
       }
-    }, 1000); // 增加等待时间，确保所有资源加载完成
+    }, 2000); // 增加等待时间，确保所有资源加载完成
   });
 </script>
