@@ -1,19 +1,39 @@
 <!-- 自定义头部内容 -->
 <!-- 添加meta标签，确保正确的跨域设置 -->
 <meta name="referrer" content="no-referrer" />
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<meta name="description" content="Walson的个人博客" />
 
 <!-- 直接引入Gitalk所需的CSS和JS文件 - 使用更可靠的CDN -->
 <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/gitalk/1.7.2/gitalk.min.css">
 <script src="https://cdn.bootcdn.net/ajax/libs/gitalk/1.7.2/gitalk.min.js"></script>
 
-<!-- 确保MD5可用 -->
+<!-- 确保MD5可用，使用多个CDN源以提高可用性 -->
 <script src="https://cdn.bootcdn.net/ajax/libs/js-md5/0.7.3/md5.min.js"></script>
+<script src="https://cdn.staticfile.org/js-md5/0.7.3/md5.min.js"></script>
+
+<!-- jQuery可能被Gitalk使用，这里也预先加载 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- 确保Gitalk在生产环境中正常工作的设置 -->
 <script>
   // 设置全局变量，用于检测环境
   window.isProduction = window.location.hostname !== 'localhost' && 
                         window.location.hostname !== '127.0.0.1';
+  
+  // 修复base64编码问题
+  window.originalBtoa = window.btoa;
+  window.btoa = function(str) {
+    try {
+      return window.originalBtoa(str);
+    } catch (e) {
+      return window.originalBtoa(
+        encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+          return String.fromCharCode('0x' + p1);
+        })
+      );
+    }
+  };
   
   // 如果是生产环境，添加额外的安全设置
   if (window.isProduction) {
@@ -25,6 +45,14 @@
         this.addEventListener('error', function(e) {
           console.error('XHR请求失败:', e);
         });
+        
+        // 添加请求完成事件
+        this.addEventListener('load', function() {
+          if (this.status >= 400) {
+            console.error('请求失败，状态码:', this.status);
+          }
+        });
+        
         originalXHROpen.apply(this, arguments);
       };
     });

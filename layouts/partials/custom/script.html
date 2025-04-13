@@ -68,17 +68,24 @@ document.addEventListener('DOMContentLoaded', function() {
         clientSecret: 'b56a83b238e49aba957fbe87f0890906ad79a4a2',
         admin: ['Jasion-han'],
         createIssueManually: false,
-        distractionFreeMode: true
+        distractionFreeMode: true,
+        // 添加proxy选项以解决跨域问题
+        proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
       };
       
       console.log('Gitalk配置:', gitalkOptions);
       
       // 实例化并渲染
       var gitalk = new Gitalk(gitalkOptions);
+      
+      // 绕过问题：手动尝试创建issue
+      gitalk.options.createIssueManually = true;
+      
+      // 渲染评论区
       gitalk.render('gitalk');
       
       // 监听DOM变化，修复评论区问题
-      applyFixesWhenReady(gitalkContainer);
+      applyFixesWhenReady(gitalkContainer, gitalk);
     } catch (error) {
       console.error('Gitalk初始化出错:', error);
       gitalkContainer.innerHTML = '<div style="color:red;text-align:center;padding:10px;">' + 
@@ -87,13 +94,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // 监听DOM变化，在Gitalk元素就绪时应用修复
-  function applyFixesWhenReady(container) {
+  function applyFixesWhenReady(container, gitalk) {
     var observer = new MutationObserver(function(mutations) {
+      // 检查是否有错误信息或评论输入框
       var hasCommentsLoaded = document.querySelector('.gt-header-textarea') !== null;
       var hasError = document.querySelector('.gt-error') !== null;
       
       if (hasError) {
-        handleGitalkErrors();
+        handleGitalkErrors(gitalk);
       }
       
       if (hasCommentsLoaded) {
@@ -105,21 +113,47 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // 处理Gitalk错误
-  function handleGitalkErrors() {
+  function handleGitalkErrors(gitalk) {
     var errors = document.querySelectorAll('.gt-error');
     errors.forEach(function(error) {
+      console.log('检测到错误:', error.textContent);
+      
       if (error.textContent.includes('Not Found')) {
         // 隐藏错误消息
         error.style.display = 'none';
         
         // 尝试创建Issue
-        var createIssueBtn = document.querySelector('.gt-header-controls .gt-btn');
-        if (createIssueBtn) {
-          console.log('检测到Not Found错误，尝试自动创建Issue');
-          setTimeout(function() {
+        console.log('检测到Not Found错误，尝试自动创建Issue');
+        
+        // 直接点击创建Issue按钮
+        setTimeout(function() {
+          var createIssueBtn = document.querySelector('.gt-header-controls .gt-btn');
+          if (createIssueBtn) {
+            console.log('找到创建Issue按钮，点击中...');
             createIssueBtn.click();
-          }, 500);
-        }
+          } else {
+            console.log('未找到创建Issue按钮');
+            
+            // 如果找不到按钮，尝试通过API直接创建
+            if (gitalk && typeof gitalk.options !== 'undefined') {
+              console.log('尝试使用Gitalk实例创建Issue');
+              // 创建特定Issue
+              gitalk.createIssue({
+                title: document.title,
+                body: '这是由系统自动创建的Issue，用于存储评论。\n\n页面地址: ' + window.location.href
+              });
+            }
+          }
+        }, 1000);
+      } else if (error.textContent.includes('Network Error') || 
+                 error.textContent.includes('Request failed') ||
+                 error.textContent.includes('ajax error')) {
+        // 网络错误处理
+        error.style.display = 'none';
+        console.log('检测到网络错误，尝试刷新Gitalk');
+        
+        // 延迟后尝试重新初始化
+        setTimeout(initGitalk, 3000);
       }
     });
   }
@@ -130,6 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var textareas = document.querySelectorAll('.gt-header-textarea');
     if (textareas.length > 0) {
       textareas.forEach(function(textarea) {
+        // 检查是否已经修复过，避免重复修复
+        if (textarea.hasAttribute('data-fixed')) return;
+        
         // 从DOM中移除并替换为新元素
         var parent = textarea.parentNode;
         if (!parent) return;
@@ -141,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newTextarea.className = textarea.className;
         newTextarea.placeholder = textarea.placeholder || '发表评论';
         newTextarea.value = textarea.value || '';
+        newTextarea.setAttribute('data-fixed', 'true');
         
         // 设置样式以确保光标可见
         newTextarea.style.pointerEvents = 'auto';
@@ -156,9 +194,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 输入事件
         newTextarea.addEventListener('input', function(e) {
+          // 触发一个全局的输入事件，确保Gitalk状态更新
+          var event = new Event('input', {bubbles: true});
+          this.dispatchEvent(event);
+          
+          // 更新提交按钮状态
           var form = this.closest('form');
           if (form) {
-            // 更新Gitalk状态
             var submitBtn = form.querySelector('.gt-btn.gt-btn-public');
             if (submitBtn) {
               submitBtn.disabled = this.value.trim().length === 0;
@@ -175,15 +217,17 @@ document.addEventListener('DOMContentLoaded', function() {
           this.style.border = '1px solid #f0f0f0';
         });
         
-        // Ctrl+Enter提交
+        // 提交快捷键
         newTextarea.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' && e.ctrlKey) {
+          if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();
             e.stopPropagation();
             
+            // 触发提交
             var submitBtn = document.querySelector('.gt-btn.gt-btn-public');
             if (submitBtn && !submitBtn.disabled) {
               submitBtn.click();
+              console.log('通过快捷键提交评论');
             }
           }
         });
@@ -199,12 +243,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var submitBtns = document.querySelectorAll('.gt-btn.gt-btn-public');
     if (submitBtns.length > 0) {
       submitBtns.forEach(function(btn) {
+        // 检查是否已经修复过，避免重复修复
+        if (btn.hasAttribute('data-fixed')) return;
+        
         var newBtn = document.createElement('button');
         
         // 复制内容和属性
         newBtn.innerHTML = btn.innerHTML;
         newBtn.className = btn.className;
         newBtn.disabled = btn.disabled;
+        newBtn.setAttribute('data-fixed', 'true');
         
         // 样式
         newBtn.style.cursor = 'pointer';
@@ -217,26 +265,52 @@ document.addEventListener('DOMContentLoaded', function() {
           e.preventDefault();
           e.stopPropagation();
           
-          var textarea = document.querySelector('.gt-header-textarea');
-          if (!textarea || textarea.value.trim() === '') return;
+          console.log('提交按钮被点击');
           
-          // 创建合成事件提交表单
+          var textarea = document.querySelector('.gt-header-textarea');
+          if (!textarea || textarea.value.trim() === '') {
+            console.log('评论内容为空，不提交');
+            return;
+          }
+          
+          console.log('提交评论内容:', textarea.value);
+          
+          // 尝试多种方式提交
+          // 1. 使用表单提交
           var form = document.querySelector('.gt-header-comment');
           if (form) {
+            console.log('找到表单，尝试提交');
+            // 创建并分发提交事件
             var submitEvent = new Event('submit', {bubbles: true, cancelable: true});
             form.dispatchEvent(submitEvent);
             
-            // 监听错误消息
-            setTimeout(function() {
-              var errors = document.querySelectorAll('.gt-error');
-              if (errors.length === 0) {
-                // 提交成功，可以清空输入框
-                // textarea.value = '';
-              }
-            }, 1000);
+            // 监控提交后的状态
+            setTimeout(checkSubmitStatus, 2000);
+          } else {
+            console.log('未找到表单元素');
           }
         });
       });
+    }
+  }
+  
+  // 检查提交状态
+  function checkSubmitStatus() {
+    var errors = document.querySelectorAll('.gt-error');
+    if (errors.length > 0) {
+      console.log('提交评论时出现错误');
+      // 可能的错误处理
+      errors.forEach(function(error) {
+        console.log('错误信息:', error.textContent);
+      });
+    } else {
+      console.log('评论可能已成功提交');
+      // 清空输入框或其他成功操作
+      var textarea = document.querySelector('.gt-header-textarea');
+      if (textarea) {
+        // 不清空，保留用户输入，避免丢失内容
+        // textarea.value = '';
+      }
     }
   }
   
@@ -245,7 +319,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.message && (
         event.message.includes('ResizeObserver') || 
         event.message.includes('Gitalk') ||
-        event.message.includes('axios')
+        event.message.includes('axios') ||
+        event.message.includes('GitHub')
       )) {
       console.log('拦截了非关键错误:', event.message);
       event.preventDefault();
