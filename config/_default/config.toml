@@ -363,8 +363,10 @@ enableEmoji = true # 启用Emoji支持
         enable = true
         owner = "Jasion-han"
         repo = "walson-blog-comments"
-        clientId = "请替换为您在GitHub OAuth Apps中获取的客户端ID"
-        clientSecret = "请替换为您在GitHub OAuth Apps中获取的客户端密钥"
+        clientId = "Ov23liFcJ08RSapOllbY"  #请替换为您在GitHub OAuth Apps中获取的客户端ID
+        clientSecret = "b56a83b238e49aba957fbe87f0890906ad79a4a2"  #请替换为您在GitHub OAuth Apps中获取的客户端密钥
+        distractionFreeMode = true
+        # 不使用CORS代理，直接通过前端处理
       # Valine 评论系统设置
       [params.page.comment.valine]
         enable = false
