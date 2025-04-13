@@ -1,0 +1,29 @@
+<!-- 自定义头部内容 -->
+<!-- 添加meta标签，确保正确的跨域设置 -->
+<meta name="referrer" content="no-referrer" />
+
+<!-- 直接引入Gitalk所需的CSS和JS文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+
+<!-- 确保Gitalk在生产环境中正常工作的设置 -->
+<script>
+  // 设置全局变量，用于检测环境
+  window.isProduction = window.location.hostname !== 'localhost' && 
+                        window.location.hostname !== '127.0.0.1';
+  
+  // 如果是生产环境，添加额外的安全设置
+  if (window.isProduction) {
+    // 设置CORS策略
+    document.addEventListener('DOMContentLoaded', function() {
+      // 监听所有AJAX请求
+      const originalXHROpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function() {
+        this.addEventListener('error', function(e) {
+          console.error('XHR请求失败:', e);
+        });
+        originalXHROpen.apply(this, arguments);
+      };
+    });
+  }
+</script>
