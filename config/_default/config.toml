@@ -353,20 +353,22 @@ enableEmoji = true # 启用Emoji支持
       Mix = false
     # 评论系统设置
     [params.page.comment]
-      enable = true
+      enable = false
       # Disqus 评论系统设置
       [params.page.comment.disqus]
         enable = false
         shortname = ""
       # Gitalk 评论系统设置
       [params.page.comment.gitalk]
-        enable = true
+        enable = false
         owner = "Jasion-han"
         repo = "walson-blog-comments"
         clientId = "Ov23liFcJ08RSapOllbY"  #请替换为您在GitHub OAuth Apps中获取的客户端ID
         clientSecret = "b56a83b238e49aba957fbe87f0890906ad79a4a2"  #请替换为您在GitHub OAuth Apps中获取的客户端密钥
         distractionFreeMode = true
-        # 不使用CORS代理，直接通过前端处理
+        admin = ["Jasion-han"]
+        createIssueManually = false
+        # ID将在自定义脚本中通过MD5处理URL生成
       # Valine 评论系统设置
       [params.page.comment.valine]
         enable = false
